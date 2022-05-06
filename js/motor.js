@@ -23,9 +23,24 @@ let loop = {
         loop.aps++;
     },
 
+    //Imprimir en pantalla
     play: function(){
         loop.fps++;
         borrarCanvas();
+
+        ctx.beginPath();
+        ctx.font = "20px verdana";
+        ctx.fillStyle = "yellow";
+        ctx.fillText( Timer.now, 15,20 );
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.font = "20px verdana";
+        ctx.fillStyle = "yellow";
+        ctx.fillText( myReloj.view, 15,60 );
+        ctx.stroke();
+
+
     },
 
 };
@@ -52,6 +67,9 @@ function ResizeWindow(){
     canvas.style.height = canvasHeight + "px";
 };
 
+//Concurrent Thread
+Concurrent.Thread.create(InitTimer);
+
 window.addEventListener( "load", function ( e ){
     ResizeWindow();
     loop.iterar();
@@ -60,3 +78,8 @@ window.addEventListener( "load", function ( e ){
 window.addEventListener( "resize", function( e ) {
     ResizeWindow();
 });
+
+//Prueba reloj
+let myReloj = new Crono( "Crono 1", typeCrono.Backward);
+myReloj.time = 5;
+myReloj.run();
